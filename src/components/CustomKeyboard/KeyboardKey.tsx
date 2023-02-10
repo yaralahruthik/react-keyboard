@@ -9,6 +9,7 @@ interface Props {
   showEnterKeyAsSymbol: boolean;
   keysColors: KeyColors;
   keysClass: KeysClass;
+  allowPhysicalKeyboard: boolean;
   onClick: (keyboardKey: string) => void;
 }
 
@@ -20,6 +21,7 @@ const KeyboardKey = ({
   showEnterKeyAsSymbol,
   keysColors,
   keysClass,
+  allowPhysicalKeyboard,
   onClick,
 }: Props) => {
   const handleUserKeyPress = useCallback(
@@ -33,11 +35,12 @@ const KeyboardKey = ({
   );
 
   useEffect(() => {
+    if (!allowPhysicalKeyboard) return;
     window.addEventListener('keydown', handleUserKeyPress);
     return () => {
       window.removeEventListener('keydown', handleUserKeyPress);
     };
-  }, [handleUserKeyPress]);
+  }, [handleUserKeyPress, allowPhysicalKeyboard]);
 
   const keyboardKeyToRender = (): string => {
     switch (keyboardKey) {
@@ -53,7 +56,7 @@ const KeyboardKey = ({
   const classNameToRender = (): string => {
     const classToAdd = keysClass?.[keyboardKey] || '';
 
-    return `w-full m-0.5 rounded bg-neutral-800 p-1 text-neutral-100 hover:drop-shadow ${classToAdd}`.trim();
+    return `w-full m-0.5 rounded bg-neutral-800 p-1 text-neutral-100 hover:opacity-95 hover:drop-shadow ${classToAdd}`.trim();
   };
 
   const stylesToRender = (): React.CSSProperties | undefined => {

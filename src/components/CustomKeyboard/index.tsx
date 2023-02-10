@@ -14,6 +14,8 @@ interface Props {
   enterKeySymbol?: string;
   keysColors?: KeyColors;
   keysClass?: KeysClass;
+  allowPhysicalKeyboard?: boolean;
+  onKeyClick: (keyboardKey: string) => void;
 }
 
 const CustomKeyboard = ({
@@ -27,9 +29,11 @@ const CustomKeyboard = ({
   className = '',
   keysColors,
   keysClass,
+  allowPhysicalKeyboard = true,
+  onKeyClick,
 }: Props) => {
   const handleKeyClick = (keyboardKey: string) => {
-    console.log(keyboardKey);
+    onKeyClick(keyboardKey);
   };
 
   const classNameToRender = (): string => {
@@ -59,6 +63,7 @@ const CustomKeyboard = ({
           >
             {row.split(' ').map((keyboardKey) => (
               <KeyboardKey
+                allowPhysicalKeyboard={allowPhysicalKeyboard}
                 key={keyboardKey}
                 keysClass={keysClass}
                 keysColors={keysColors}

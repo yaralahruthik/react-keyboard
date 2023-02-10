@@ -1,7 +1,11 @@
 import CustomKeyboard from './components/CustomKeyboard';
 
 function App() {
-  return <CustomKeyboard />;
+  const onClick = (keyboardKey: string) => {
+    console.log(keyboardKey);
+  };
+
+  return <CustomKeyboard onKeyClick={onClick} />;
 }
 
 export default App;
