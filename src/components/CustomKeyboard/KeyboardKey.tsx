@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from 'react';
+import { KeyColors, KeysClass } from '../../types';
 
 interface Props {
   keyboardKey: string;
@@ -6,6 +7,8 @@ interface Props {
   enterKeySymbol: string;
   showBackspaceKeyAsSymbol: boolean;
   showEnterKeyAsSymbol: boolean;
+  keysColors: KeyColors;
+  keysClass: KeysClass;
   onClick: (keyboardKey: string) => void;
 }
 
@@ -15,6 +18,8 @@ const KeyboardKey = ({
   enterKeySymbol,
   showBackspaceKeyAsSymbol,
   showEnterKeyAsSymbol,
+  keysColors,
+  keysClass,
   onClick,
 }: Props) => {
   const handleUserKeyPress = useCallback(
@@ -45,9 +50,27 @@ const KeyboardKey = ({
     }
   };
 
+  const classNameToRender = (): string => {
+    const classToAdd = keysClass?.[keyboardKey] || '';
+
+    return `w-full m-0.5 rounded bg-neutral-800 p-1 text-neutral-100 hover:drop-shadow ${classToAdd}`.trim();
+  };
+
+  const stylesToRender = (): React.CSSProperties | undefined => {
+    const styles: React.CSSProperties | undefined = {};
+
+    if (keysColors && keysColors[keyboardKey]) {
+      styles.color = keysColors[keyboardKey].textColor;
+      styles.backgroundColor = keysColors[keyboardKey].buttonColor;
+    }
+
+    return styles;
+  };
+
   return (
     <button
-      className={`m-1 w-full rounded bg-neutral-800 p-1 text-lg text-neutral-100 hover:bg-neutral-700 hover:drop-shadow`}
+      className={classNameToRender()}
+      style={stylesToRender()}
       onClick={() => onClick(keyboardKey)}
       onMouseDown={(e) => e.preventDefault()}
     >

@@ -1,9 +1,10 @@
 import KeyboardKey from './KeyboardKey';
 
 import { defaultLayout } from '../../utils/layout';
-import { Color } from '../../types/color';
+import { KeyColors, KeysClass } from '../../types';
 
 interface Props {
+  className?: string;
   keyColGap?: number;
   keyRowGap?: number;
   layout?: string[];
@@ -11,7 +12,8 @@ interface Props {
   showBackspaceKeyAsSymbol?: boolean;
   showEnterKeyAsSymbol?: boolean;
   enterKeySymbol?: string;
-  enterKeyColor?: Color;
+  keysColors?: KeyColors;
+  keysClass?: KeysClass;
 }
 
 const CustomKeyboard = ({
@@ -20,23 +22,46 @@ const CustomKeyboard = ({
   layout = defaultLayout,
   backspaceKeySymbol = '⌫',
   showBackspaceKeyAsSymbol = true,
-  showEnterKeyAsSymbol = false,
+  showEnterKeyAsSymbol = true,
   enterKeySymbol = '↵',
+  className = '',
+  keysColors,
+  keysClass,
 }: Props) => {
   const handleKeyClick = (keyboardKey: string) => {
     console.log(keyboardKey);
   };
 
+  const classNameToRender = (): string => {
+    return `m-1 flex flex-col ${className}`.trim();
+  };
+
+  const rowStylesToRender = (): React.CSSProperties | undefined => {
+    const styles: React.CSSProperties | undefined = { gap: `${keyRowGap}rem` };
+
+    return styles;
+  };
+
+  const colStylesToRender = (): React.CSSProperties | undefined => {
+    const styles: React.CSSProperties | undefined = { gap: `${keyColGap}rem` };
+
+    return styles;
+  };
+
   return (
-    <div
-      className={`m-1 flex flex-col border border-gray-700 gap-${keyRowGap}`}
-    >
+    <div className={classNameToRender()} style={rowStylesToRender()}>
       {layout.map((row) => {
         return (
-          <div className={`flex justify-around gap-${keyColGap}`} key={row}>
+          <div
+            className={`flex justify-around`}
+            style={colStylesToRender()}
+            key={row}
+          >
             {row.split(' ').map((keyboardKey) => (
               <KeyboardKey
                 key={keyboardKey}
+                keysClass={keysClass}
+                keysColors={keysColors}
                 showBackspaceKeyAsSymbol={showBackspaceKeyAsSymbol}
                 showEnterKeyAsSymbol={showEnterKeyAsSymbol}
                 backspaceKeySymbol={backspaceKeySymbol}
