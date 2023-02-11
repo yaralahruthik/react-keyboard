@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { KeyColors, KeysClass } from '../../types';
+import { KeysColors, KeysClass } from '../../types';
 
 interface Props {
   keyboardKey: string;
@@ -7,7 +7,7 @@ interface Props {
   enterKeySymbol: string;
   showBackspaceKeyAsSymbol: boolean;
   showEnterKeyAsSymbol: boolean;
-  keysColors: KeyColors;
+  keysColors: KeysColors;
   keysClass: KeysClass;
   allowPhysicalKeyboard: boolean;
   onClick: (keyboardKey: string) => void;

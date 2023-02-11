@@ -1,7 +1,7 @@
 import KeyboardKey from './KeyboardKey';
 
 import { defaultLayout } from '../../utils/layout';
-import { KeyColors, KeysClass } from '../../types';
+import { KeysColors, KeysClass } from '../../types';
 
 interface Props {
   className?: string;
@@ -12,7 +12,7 @@ interface Props {
   showBackspaceKeyAsSymbol?: boolean;
   showEnterKeyAsSymbol?: boolean;
   enterKeySymbol?: string;
-  keysColors?: KeyColors;
+  keysColors?: KeysColors;
   keysClass?: KeysClass;
   allowPhysicalKeyboard?: boolean;
   onKeyClick: (keyboardKey: string) => void;

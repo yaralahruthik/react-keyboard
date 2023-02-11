@@ -1,6 +1,6 @@
 type Color = `#${string}`;
 
-export type KeyColors =
+export type KeysColors =
   | { [keyboardKey: string]: { textColor: Color; buttonColor: Color } }
   | undefined;
 
