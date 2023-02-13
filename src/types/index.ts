@@ -5,3 +5,5 @@ export type KeysColors =
   | undefined;
 
 export type KeysClasses = { [keyboardKey: string]: string } | undefined;
+
+export type KeysSymbols = { [keyboardKey: string]: string } | undefined;

@@ -1,17 +1,15 @@
 import KeyboardKey from './KeyboardKey';
 
 import { defaultLayout } from '../../utils/layout';
-import { KeysColors, KeysClasses } from '../../types';
+import { KeysColors, KeysClasses, KeysSymbols } from '../../types';
+import { defaultKeysSymbols } from '../../utils/keysSymbols';
 
 interface Props {
   className?: string;
   keyColGap?: number;
   keyRowGap?: number;
   layout?: string[];
-  backspaceKeySymbol?: string;
-  showBackspaceKeyAsSymbol?: boolean;
-  showEnterKeyAsSymbol?: boolean;
-  enterKeySymbol?: string;
+  keysSymbols?: KeysSymbols;
   keysColors?: KeysColors;
   keysClasses?: KeysClasses;
   allowPhysicalKeyboard?: boolean;
@@ -22,10 +20,7 @@ const CustomKeyboard = ({
   keyColGap = 0,
   keyRowGap = 0,
   layout = defaultLayout,
-  backspaceKeySymbol = '⌫',
-  showBackspaceKeyAsSymbol = true,
-  showEnterKeyAsSymbol = true,
-  enterKeySymbol = '↵',
+  keysSymbols = defaultKeysSymbols,
   className = '',
   keysColors,
   keysClasses,
@@ -67,10 +62,7 @@ const CustomKeyboard = ({
                 key={keyboardKey}
                 keysClasses={keysClasses}
                 keysColors={keysColors}
-                showBackspaceKeyAsSymbol={showBackspaceKeyAsSymbol}
-                showEnterKeyAsSymbol={showEnterKeyAsSymbol}
-                backspaceKeySymbol={backspaceKeySymbol}
-                enterKeySymbol={enterKeySymbol}
+                keysSymbols={keysSymbols}
                 keyboardKey={keyboardKey}
                 onClick={handleKeyClick}
               />

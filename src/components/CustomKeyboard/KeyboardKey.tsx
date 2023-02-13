@@ -1,12 +1,9 @@
 import { useCallback, useEffect } from 'react';
-import { KeysColors, KeysClasses } from '../../types';
+import { KeysColors, KeysClasses, KeysSymbols } from '../../types';
 
 interface Props {
   keyboardKey: string;
-  backspaceKeySymbol: string;
-  enterKeySymbol: string;
-  showBackspaceKeyAsSymbol: boolean;
-  showEnterKeyAsSymbol: boolean;
+  keysSymbols: KeysSymbols;
   keysColors: KeysColors;
   keysClasses: KeysClasses;
   allowPhysicalKeyboard: boolean;
@@ -15,10 +12,7 @@ interface Props {
 
 const KeyboardKey = ({
   keyboardKey,
-  backspaceKeySymbol,
-  enterKeySymbol,
-  showBackspaceKeyAsSymbol,
-  showEnterKeyAsSymbol,
+  keysSymbols,
   keysColors,
   keysClasses,
   allowPhysicalKeyboard,
@@ -43,14 +37,11 @@ const KeyboardKey = ({
   }, [handleUserKeyPress, allowPhysicalKeyboard]);
 
   const keyboardKeyToRender = (): string => {
-    switch (keyboardKey) {
-      case 'enter':
-        return showEnterKeyAsSymbol ? enterKeySymbol : 'enter';
-      case 'backspace':
-        return showBackspaceKeyAsSymbol ? backspaceKeySymbol : 'backspace';
-      default:
-        return keyboardKey;
+    if (keysSymbols && keysSymbols[keyboardKey]) {
+      return keysSymbols[keyboardKey];
     }
+
+    return keyboardKey;
   };
 
   const classNameToRender = (): string => {
