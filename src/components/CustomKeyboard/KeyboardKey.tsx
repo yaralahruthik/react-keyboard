@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { KeysColors, KeysClass } from '../../types';
+import { KeysColors, KeysClasses } from '../../types';
 
 interface Props {
   keyboardKey: string;
@@ -8,7 +8,7 @@ interface Props {
   showBackspaceKeyAsSymbol: boolean;
   showEnterKeyAsSymbol: boolean;
   keysColors: KeysColors;
-  keysClass: KeysClass;
+  keysClasses: KeysClasses;
   allowPhysicalKeyboard: boolean;
   onClick: (keyboardKey: string) => void;
 }
@@ -20,7 +20,7 @@ const KeyboardKey = ({
   showBackspaceKeyAsSymbol,
   showEnterKeyAsSymbol,
   keysColors,
-  keysClass,
+  keysClasses,
   allowPhysicalKeyboard,
   onClick,
 }: Props) => {
@@ -54,7 +54,7 @@ const KeyboardKey = ({
   };
 
   const classNameToRender = (): string => {
-    const classToAdd = keysClass?.[keyboardKey] || '';
+    const classToAdd = keysClasses?.[keyboardKey] || '';
 
     return `w-full m-0.5 rounded bg-neutral-800 p-1 text-neutral-100 hover:opacity-95 hover:drop-shadow ${classToAdd}`.trim();
   };

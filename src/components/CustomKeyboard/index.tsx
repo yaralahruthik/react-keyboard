@@ -1,7 +1,7 @@
 import KeyboardKey from './KeyboardKey';
 
 import { defaultLayout } from '../../utils/layout';
-import { KeysColors, KeysClass } from '../../types';
+import { KeysColors, KeysClasses } from '../../types';
 
 interface Props {
   className?: string;
@@ -13,7 +13,7 @@ interface Props {
   showEnterKeyAsSymbol?: boolean;
   enterKeySymbol?: string;
   keysColors?: KeysColors;
-  keysClass?: KeysClass;
+  keysClasses?: KeysClasses;
   allowPhysicalKeyboard?: boolean;
   onKeyClick: (keyboardKey: string) => void;
 }
@@ -28,7 +28,7 @@ const CustomKeyboard = ({
   enterKeySymbol = '↵',
   className = '',
   keysColors,
-  keysClass,
+  keysClasses,
   allowPhysicalKeyboard = true,
   onKeyClick,
 }: Props) => {
@@ -65,7 +65,7 @@ const CustomKeyboard = ({
               <KeyboardKey
                 allowPhysicalKeyboard={allowPhysicalKeyboard}
                 key={keyboardKey}
-                keysClass={keysClass}
+                keysClasses={keysClasses}
                 keysColors={keysColors}
                 showBackspaceKeyAsSymbol={showBackspaceKeyAsSymbol}
                 showEnterKeyAsSymbol={showEnterKeyAsSymbol}
