@@ -1,26 +1,20 @@
 import { useCallback, useEffect } from 'react';
-import { KeysColors, KeysClass } from '../../types';
+import { KeysColors, KeysClasses, KeysSymbols } from '../../types';
 
 interface Props {
   keyboardKey: string;
-  backspaceKeySymbol: string;
-  enterKeySymbol: string;
-  showBackspaceKeyAsSymbol: boolean;
-  showEnterKeyAsSymbol: boolean;
+  keysSymbols: KeysSymbols;
   keysColors: KeysColors;
-  keysClass: KeysClass;
+  keysClasses: KeysClasses;
   allowPhysicalKeyboard: boolean;
   onClick: (keyboardKey: string) => void;
 }
 
 const KeyboardKey = ({
   keyboardKey,
-  backspaceKeySymbol,
-  enterKeySymbol,
-  showBackspaceKeyAsSymbol,
-  showEnterKeyAsSymbol,
+  keysSymbols,
   keysColors,
-  keysClass,
+  keysClasses,
   allowPhysicalKeyboard,
   onClick,
 }: Props) => {
@@ -43,18 +37,15 @@ const KeyboardKey = ({
   }, [handleUserKeyPress, allowPhysicalKeyboard]);
 
   const keyboardKeyToRender = (): string => {
-    switch (keyboardKey) {
-      case 'enter':
-        return showEnterKeyAsSymbol ? enterKeySymbol : 'enter';
-      case 'backspace':
-        return showBackspaceKeyAsSymbol ? backspaceKeySymbol : 'backspace';
-      default:
-        return keyboardKey;
+    if (keysSymbols && keysSymbols[keyboardKey]) {
+      return keysSymbols[keyboardKey];
     }
+
+    return keyboardKey;
   };
 
   const classNameToRender = (): string => {
-    const classToAdd = keysClass?.[keyboardKey] || '';
+    const classToAdd = keysClasses?.[keyboardKey] || '';
 
     return `w-full m-0.5 rounded bg-neutral-800 p-1 text-neutral-100 hover:opacity-95 hover:drop-shadow ${classToAdd}`.trim();
   };
