@@ -56,10 +56,10 @@ const CustomKeyboard = ({
             style={colStylesToRender()}
             key={row}
           >
-            {row.split(' ').map((keyboardKey) => (
+            {row.split(' ').map((keyboardKey, index) => (
               <KeyboardKey
                 allowPhysicalKeyboard={allowPhysicalKeyboard}
-                key={keyboardKey}
+                key={index}
                 keysClasses={keysClasses}
                 keysColors={keysColors}
                 keysSymbols={keysSymbols}

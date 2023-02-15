@@ -21,7 +21,7 @@ const KeyboardKey = ({
   const handleUserKeyPress = useCallback(
     (event: KeyboardEvent) => {
       const { key } = event;
-      if (key.toLowerCase() === keyboardKey.toLowerCase()) {
+      if (key === keyboardKey) {
         onClick(keyboardKey);
       }
     },
@@ -41,13 +41,13 @@ const KeyboardKey = ({
       return keysSymbols[keyboardKey];
     }
 
-    return keyboardKey;
+    return keyboardKey.replace(/\B_\B/, ' ');
   };
 
   const classNameToRender = (): string => {
     const classToAdd = keysClasses?.[keyboardKey] || '';
 
-    return `w-full m-0.5 rounded bg-neutral-800 p-1 text-neutral-100 hover:opacity-95 hover:drop-shadow ${classToAdd}`.trim();
+    return `w-full m-0.5 disabled:opacity-0 rounded bg-neutral-800 p-1 text-neutral-100 hover:opacity-95 hover:drop-shadow ${classToAdd}`.trim();
   };
 
   const stylesToRender = (): React.CSSProperties | undefined => {
@@ -67,6 +67,7 @@ const KeyboardKey = ({
       style={stylesToRender()}
       onClick={() => onClick(keyboardKey)}
       onMouseDown={(e) => e.preventDefault()}
+      disabled={keyboardKeyToRender() === '__'}
     >
       {keyboardKeyToRender()}
     </button>
