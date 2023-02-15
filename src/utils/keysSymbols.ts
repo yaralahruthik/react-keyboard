@@ -1,1 +1,6 @@
-export const defaultKeysSymbols = { enter: '↵', backspace: '⌫' };
+export const defaultKeysSymbols = {
+  enter: '↵',
+  backspace: '⌫',
+  caps_lock: '⇪',
+  capslock: '⇪',
+};

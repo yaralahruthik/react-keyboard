@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { KeysColors, KeysClasses, KeysSymbols } from '../../types';
+import { spacebarCheck } from '../../utils/keyChecks';
 
 interface Props {
   keyboardKey: string;
@@ -21,7 +22,7 @@ const KeyboardKey = ({
   const handleUserKeyPress = useCallback(
     (event: KeyboardEvent) => {
       const { key } = event;
-      if (key === keyboardKey) {
+      if (key === keyboardKey || (key === ' ' && spacebarCheck(keyboardKey))) {
         onClick(keyboardKey);
       }
     },
@@ -37,8 +38,8 @@ const KeyboardKey = ({
   }, [handleUserKeyPress, allowPhysicalKeyboard]);
 
   const keyboardKeyToRender = (): string => {
-    if (keysSymbols && keysSymbols[keyboardKey]) {
-      return keysSymbols[keyboardKey];
+    if (keysSymbols && keysSymbols[keyboardKey.toLowerCase()]) {
+      return keysSymbols[keyboardKey.toLowerCase()];
     }
 
     return keyboardKey.replace(/\B_\B/, ' ');

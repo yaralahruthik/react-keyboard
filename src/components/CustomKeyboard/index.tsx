@@ -1,8 +1,10 @@
-import KeyboardKey from './KeyboardKey';
+import { useEffect, useState } from 'react';
 
+import KeyboardKey from './KeyboardKey';
 import { defaultLayout } from '../../utils/layout';
-import { KeysColors, KeysClasses, KeysSymbols } from '../../types';
 import { defaultKeysSymbols } from '../../utils/keysSymbols';
+import { KeysColors, KeysClasses, KeysSymbols } from '../../types';
+import { capsCheck, spacebarCheck } from '../../utils/keyChecks';
 
 interface Props {
   className?: string;
@@ -27,8 +29,29 @@ const CustomKeyboard = ({
   allowPhysicalKeyboard = true,
   onKeyClick,
 }: Props) => {
+  const [isCaps, setIsCaps] = useState(false);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      setIsCaps(event.getModifierState('CapsLock'));
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, []);
+
   const handleKeyClick = (keyboardKey: string) => {
-    onKeyClick(keyboardKey);
+    if (capsCheck(keyboardKey)) {
+      setIsCaps((prevState) => !prevState);
+      return;
+    }
+
+    if (spacebarCheck(keyboardKey)) {
+      onKeyClick(' ');
+      return;
+    }
+
+    onKeyClick(isCaps ? keyboardKey.toUpperCase() : keyboardKey);
   };
 
   const classNameToRender = (): string => {
@@ -52,7 +75,7 @@ const CustomKeyboard = ({
       {layout.map((row) => {
         return (
           <div
-            className={`flex justify-around`}
+            className={`flex justify-around overflow-x-auto`}
             style={colStylesToRender()}
             key={row}
           >
@@ -63,7 +86,7 @@ const CustomKeyboard = ({
                 keysClasses={keysClasses}
                 keysColors={keysColors}
                 keysSymbols={keysSymbols}
-                keyboardKey={keyboardKey}
+                keyboardKey={isCaps ? keyboardKey.toUpperCase() : keyboardKey}
                 onClick={handleKeyClick}
               />
             ))}
